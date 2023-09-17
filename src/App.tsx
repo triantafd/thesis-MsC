@@ -7,7 +7,7 @@ import { useDarkMode } from './context/darkModeContext';
 
 function App() {
   const { darkMode, toggleDarkMode } = useDarkMode();
-  
+
   return (
     <div className="App">
       <Header />
