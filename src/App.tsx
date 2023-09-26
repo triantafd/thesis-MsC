@@ -1,42 +1,106 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
+
+import { IParentRoute, IRoute, authRoutes } from './routes/allRoutes';
+
+import PageNotFound404 from './pages/PageNotFound404';
+import RootLayout from './layouts/authLayout';
+
 import './App.css';
-import Footer from './layouts/Footer';
-import Header from './layouts/Header';
-import { useDarkMode } from './context/darkModeContext';
-import RootLayout from './layouts';
+import LandingPage from './pages/LandingPage';
+
+const getRoutes = (
+  Layout: React.ComponentType<{ children?: React.ReactNode }>,
+  routes: IParentRoute[] | IRoute[]
+) =>
+  routes.map((route, index) => {
+    if ('children' in route) {
+      // This block will run for IParentRoute type routes.
+      return route.children.map((element, childIndex) => {
+        if ('redirectTo' in element) {
+          return (
+            <Route
+              key={childIndex}
+              path={element.path}
+              element={<Navigate to={element.redirectTo} replace />}
+            />
+          );
+        }
+
+        // Check if the 'component' property exists in the 'element' object.
+        if ('component' in element) {
+          const ChildGuard = element.guard || React.Fragment;
+          const ElementComponent = element.component;
+
+          return (
+            <Route
+              key={childIndex}
+              path={element.path}
+              element={(
+                <Layout>
+                  <ChildGuard>
+                    <ElementComponent />
+                  </ChildGuard>
+                </Layout>
+              )}
+            />
+          );
+        }
+
+        return null; // Return null for cases that don't match the above conditions.
+      });
+    } else if ('component' in route) {
+      // This block will run for IRoute type routes.
+      const Guard = route.guard || React.Fragment;
+      const RouteComponent = route.component;
+
+      return (
+        <Route
+          key={index}
+          path={route.path}
+          element={(
+            <Layout>
+              <Guard>
+                <RouteComponent />
+              </Guard>
+            </Layout>
+          )}
+        />
+      );
+    } else {
+      return null; // Return null for cases that don't match any of the above conditions.
+    }
+  });
+
 
 function App() {
-  const { darkMode, toggleDarkMode } = useDarkMode();
+  const isUser = true
 
   return (
-    <div className="App">
-      <RootLayout>
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <div>
-            <button onClick={toggleDarkMode}>
-              Toggle {darkMode ? 'Light' : 'Dark'} Mode
-            </button>
-            <div className={`bg-white dark:bg-gray-900`}>
-              This is your content. It'll be white in light mode and gray-900 in
-              dark mode.
+    <BrowserRouter>
+      <Routes>
+        {isUser && getRoutes(RootLayout, [authRoutes])}
+        {getRoutes(RootLayout, [authRoutes])}
+        < Route
+          path="/"
+          element={
+            <div className="App">
+              <RootLayout>
+                <LandingPage />
+              </RootLayout>
             </div>
-          </div>
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </RootLayout>
-    </div>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <div className="App">
+              <PageNotFound404 />
+            </div>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
