@@ -1,6 +1,3 @@
-/** @format */
-
-import { Navigate } from "react-router-dom";
 import Login from "../pages/auth/Login";
 
 type Guard = React.ComponentType<{ children?: React.ReactNode }>;
