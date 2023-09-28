@@ -5,6 +5,7 @@ import { authRoutes } from './routes/allRoutes';
 
 import PageNotFound404 from './pages/PageNotFound404';
 import RootLayout from './layouts/authLayout';
+import UserLayout from './layouts/userLayout';
 
 import './App.css';
 import LandingPage from './pages/LandingPage';
@@ -16,8 +17,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {isUser && getRoutes(RootLayout, [authRoutes])}
-        {getRoutes(RootLayout, [authRoutes])}
+        {isUser && getRoutes(UserLayout, [authRoutes])}
+        {!isUser && getRoutes(RootLayout, [authRoutes])}
         <Route
           path="/"
           element={
