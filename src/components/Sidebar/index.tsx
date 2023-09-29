@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/logos/LogoAUTHwhite300ppi.png'
 
 type Props = {
   logo: string; // URL or path to the logo image.
@@ -91,7 +92,7 @@ const Sidebar: React.FC<{}> = () => {
             : <i className="text-white fas fa-times"></i>
           }
         </button>
-        <img src={'images/icon-linkedin.svg'} alt="Logo" className="w-16 h-16" />
+        <img src={logo} alt="Logo" className="w-16 h-16" />
         <i className="text-white far fa-user-circle"></i>
       </div>
 
@@ -103,7 +104,7 @@ const Sidebar: React.FC<{}> = () => {
         <div className="p-4">
           {/* Logo for medium and up */}
           <div className="hidden md:block">
-            <img src={'images/icon-linkedin.svg'} alt="Logo" className="w-32 mx-auto" />
+            <img src={logo} alt="Logo" className="w-32 mx-auto" />
           </div>
 
           {/* Nav Items */}
