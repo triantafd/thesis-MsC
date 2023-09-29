@@ -1,41 +1,44 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
+
+import { authRoutes } from './routes/allRoutes';
+
+import PageNotFound404 from './pages/PageNotFound404';
+import RootLayout from './layouts/authLayout';
+import UserLayout from './layouts/userLayout';
+
 import './App.css';
-import Footer from './layouts/Footer';
-import Header from './layouts/Header';
-import { useDarkMode } from './context/darkModeContext';
+import LandingPage from './pages/LandingPage';
+import { getRoutes } from './utils/getRoutes';
 
 function App() {
-  const { darkMode, toggleDarkMode } = useDarkMode();
+  const isUser = true;
 
   return (
-    <div className="App">
-      <Header />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <div>
-          <button onClick={toggleDarkMode}>
-            Toggle {darkMode ? 'Light' : 'Dark'} Mode
-          </button>
-          <div className={`bg-white dark:bg-gray-900`}>
-            This is your content. It'll be white in light mode and gray-900 in
-            dark mode.
-          </div>
-        </div>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {isUser && getRoutes(UserLayout, [authRoutes])}
+        {!isUser && getRoutes(RootLayout, [authRoutes])}
+        <Route
+          path="/"
+          element={
+            <div className="App">
+              <RootLayout>
+                <LandingPage />
+              </RootLayout>
+            </div>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <div className="App">
+              <PageNotFound404 />
+            </div>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
