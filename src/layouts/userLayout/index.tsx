@@ -17,7 +17,7 @@ export default function UserLayout({ children }: { children?: React.ReactNode })
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto p-4">
+          <div className="flex-1 overflow-y-auto p-4 bg-slate-400">
             {children}
           </div>
         </div>

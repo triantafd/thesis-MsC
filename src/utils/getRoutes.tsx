@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Navigate } from "react-router-dom";
-import { IParentRoute, IRoute } from "../routes/allRoutes";
+import { IParentRoute, IRoute } from "../routes/types";
 
 export const getRoutes = (
   Layout: React.ComponentType<{ children?: React.ReactNode }>,
