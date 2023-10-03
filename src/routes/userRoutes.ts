@@ -1,15 +1,21 @@
 /** @format */
 
+import Settings from "../pages/Settings";
 import Account from "../pages/account";
 import { IRoute } from "./types";
 
-const userRoutes: IRoute = {
+const accountUserRoute: IRoute = {
   path: "/account",
   name: "Account",
   component: Account,
   guard: null,
 };
 
-export const layoutRoutesUser = [];
+const accountSettingsRoute: IRoute = {
+  path: "/settings",
+  name: "Settings",
+  component: Settings,
+  guard: null,
+};
 
-export { userRoutes };
+export const layoutRoutesUser = [accountUserRoute, accountSettingsRoute];

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 
-import { authRoutes } from './routes/authRoutes';
+import { layoutAuthRoutes } from './routes/authRoutes';
 
 import PageNotFound404 from './pages/PageNotFound404';
 import RootLayout from './layouts/authLayout';
@@ -10,7 +10,7 @@ import UserLayout from './layouts/userLayout';
 import './App.css';
 import LandingPage from './pages/LandingPage';
 import { getRoutes } from './utils/getRoutes';
-import { userRoutes } from './routes/userRoutes';
+import { layoutRoutesUser } from './routes/userRoutes';
 
 function App() {
   const isUser = true
@@ -18,9 +18,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-{/*         {isUser && getRoutes(UserLayout, [authRoutes])} */}
-        {isUser && getRoutes(UserLayout, [userRoutes])}
-        {!isUser && getRoutes(RootLayout, [authRoutes])}
+        {/*         {isUser && getRoutes(UserLayout, [authRoutes])} */}
+        {isUser && getRoutes(UserLayout, layoutRoutesUser)}
+        {!isUser && getRoutes(RootLayout, layoutAuthRoutes)}
         <Route
           path="/"
           element={

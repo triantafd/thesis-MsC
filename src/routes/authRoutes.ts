@@ -24,6 +24,5 @@ const authRoutes: IParentRoute = {
   ],
 };
 
-export const layoutRoutesUser = [];
+export const layoutAuthRoutes = [authRoutes];
 
-export { authRoutes };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 type UserNavbarProps = {
   brandText: string;
@@ -32,28 +33,35 @@ const UserNavbar: React.FC<UserNavbarProps> = ({ brandText, userName }) => {
           <div className="absolute right-8 top-16 w-56 rounded-md shadow-lg bg-white z-50" onClick={e => e.stopPropagation()}>
             <div className="rounded-md bg-white shadow-xs">
               <div className="py-1">
-                <a href="/" className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-200" onClick={(e) => {
-                  e.preventDefault();
-                  setDropdownOpen(false);
-                }}>
+                <Link
+                  to="/account"
+                  className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-200"
+                  onClick={() => setDropdownOpen(false)}
+                >
                   <i className="text-black fas fa-user-circle pr-1"></i>
-                  My profile
-                </a>
-                <a href="/" className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-200" onClick={(e) => {
-                  e.preventDefault();
-                  setDropdownOpen(false);
-                }}>
+                  My account
+                </Link>
+
+                <Link
+                  to="/settings"
+                  className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-200"
+                  onClick={() => setDropdownOpen(false)}
+                >
                   <i className="text-black fas fa-cog pr-1"></i>
                   Settings
-                </a>
-                <a href="/" className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-200" onClick={(e) => {
-                  e.preventDefault();
-                  localStorage.clear();
-                  setDropdownOpen(false);
-                }}>
+                </Link>
+
+                <Link
+                  to="/"
+                  className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-200"
+                  onClick={() => {
+                    localStorage.clear();
+                    setDropdownOpen(false);
+                  }}
+                >
                   <i className="text-black fas fa-sign-out-alt pr-1"></i>
                   Logout
-                </a>
+                </Link>
               </div>
             </div>
           </div>

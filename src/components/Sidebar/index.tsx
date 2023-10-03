@@ -15,19 +15,19 @@ const navItems = [
     name: "Home",
     icon: "fas fa-home",
     link: "/home",
-    route: "/home"
+    route: "/account"
   },
   {
-    name: "Profile",
+    name: "Account",
     icon: "fas fa-user",
     link: "/profile",
-    route: "/home"
+    route: "/account"
   },
   {
     name: "Settings",
     icon: "fas fa-cog",
     link: "/settings",
-    route: "/home"
+    route: "/settings"
   }
 ];
 
