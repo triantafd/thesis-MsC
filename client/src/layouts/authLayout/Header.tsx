@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/authContext';
+import { useNavigate } from 'react-router-dom';
 
 interface IHeaderProps { }
 
 const Header: React.FC<IHeaderProps> = (props) => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const { login } = useAuth();
-
-  const handleClick = () => {
-    login('b', 'b')
-  }
+  const { user, handleLogin, handleLogout } = useAuth();
+  const navigate = useNavigate();
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -50,14 +48,34 @@ const Header: React.FC<IHeaderProps> = (props) => {
             <a href="#faq" className="tracking-widest hover:text-softRed">
               FAQ
             </a>
-
             <a
+
               href="/"
               className="px-8 py-2 text-slate-500 bg-softRed border-2 border-softRed rounded-lg shadow-md hover:text-softRed hover:bg-white"
-              onClick={handleClick}
+              onClick={handleLogout}
             >
-              Login
+              logout
             </a>
+            {!user
+              ?
+              <a
+
+                href="/"
+                className="px-8 py-2 text-slate-500 bg-softRed border-2 border-softRed rounded-lg shadow-md hover:text-softRed hover:bg-white"
+                onClick={() => handleLogin("test@test.com", '1223')}
+              >
+                Login
+              </a>
+
+              : <a
+
+                href="/"
+                className="px-8 py-2 text-slate-500 bg-softRed border-2 border-softRed rounded-lg shadow-md hover:text-softRed hover:bg-white"
+                onClick={() => navigate('/account')}
+              >
+                Dashboard
+              </a>
+            }
           </div>
           {/*    <!-- Hamburger Button --> */}
           <button
@@ -122,7 +140,7 @@ const Header: React.FC<IHeaderProps> = (props) => {
             </div>
           </div>
         </div>
-      </div>
+      </div >
       {/* <LoginForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} /> */}
     </div >
   );

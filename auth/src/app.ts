@@ -10,7 +10,7 @@ import { currentUserRouter } from "./routes/current-user";
 import { signinRouter } from "./routes/signin";
 import { signoutRouter } from "./routes/signout";
 import { signupRouter } from "./routes/signup";
-import cors from 'cors';
+import cors from "cors";
 
 const app = express();
 app.use(cors());
@@ -19,7 +19,7 @@ app.use(json());
 app.use(
   cookieSession({
     signed: false,
-    secure: process.env.NODE_ENV === "test",
+    secure: process.env.NODE_ENV !== "test",
   })
 );
 

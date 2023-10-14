@@ -4,7 +4,7 @@ import { IParentRoute, IRoute } from "../routes/types";
 
 export const getRoutes = (
   Layout: React.ComponentType<{ children?: React.ReactNode }>,
-  routes: IParentRoute[] | IRoute[]
+  routes: (IParentRoute | IRoute)[]
 ) =>
   routes.map((route, index) => {
     if ("children" in route) {
