@@ -25,9 +25,6 @@ export const getCurrentUser = async () => {
 export const login = async (email: string, password: string) => {
   try {
     // Make an API call to authenticate the user
-    console.log('wtf')
-    const b = await getCurrentUser();
-    console.log(b)
     const response = await fetch(`${baseUrl}/signin`, {
       method: "POST",
       headers: {
