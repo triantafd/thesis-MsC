@@ -23,7 +23,7 @@ export const currentUser = (
   if (!req.session?.jwt) {
     return next();
   }
-
+  console.log(process.env.JWT_KEY, 'whatwhat')
   try {
     const payload = jwt.verify(
       req.session.jwt,
