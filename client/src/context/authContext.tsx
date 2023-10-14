@@ -47,7 +47,7 @@ export const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
       // Make an API call to authenticate the user
       email = "test@test.com"
       password = "1223"
-      const response = await fetch('/api/users/signin', {
+      const response = await fetch('http://localhost:3000/api//users/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

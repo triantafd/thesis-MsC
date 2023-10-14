@@ -8,6 +8,10 @@ const Header: React.FC<IHeaderProps> = (props) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { login } = useAuth();
 
+  const handleClick = () => {
+    login('b', 'b')
+  }
+
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
@@ -50,7 +54,7 @@ const Header: React.FC<IHeaderProps> = (props) => {
             <a
               href="/"
               className="px-8 py-2 text-slate-500 bg-softRed border-2 border-softRed rounded-lg shadow-md hover:text-softRed hover:bg-white"
-              onClick={() => login}
+              onClick={handleClick}
             >
               Login
             </a>
@@ -94,10 +98,10 @@ const Header: React.FC<IHeaderProps> = (props) => {
             </a>
           </div>
         </div>
-      </nav>
+      </nav >
 
       {/*  Jumbotron  */}
-      <div className="bg-gray-300 text-black font-semibold py-16 px-8">
+      <div className="bg-gray-300 text-black font-semibold py-16 px-8" >
         <div className="container mx-auto">
           <div className="mb-8">
             <div className="text-xl leading-tight mb-4 w-full md:w-3/4">
@@ -120,7 +124,7 @@ const Header: React.FC<IHeaderProps> = (props) => {
         </div>
       </div>
       {/* <LoginForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} /> */}
-    </div>
+    </div >
   );
 };
 
