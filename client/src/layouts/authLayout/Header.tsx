@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/authContext';
 import { useNavigate } from 'react-router-dom';
+import { getCurrentUser } from '../../services/authService';
 
 interface IHeaderProps { }
 
@@ -48,33 +49,33 @@ const Header: React.FC<IHeaderProps> = (props) => {
             <a href="#faq" className="tracking-widest hover:text-softRed">
               FAQ
             </a>
-            <a
-
-              href="/"
+            <button
               className="px-8 py-2 text-slate-500 bg-softRed border-2 border-softRed rounded-lg shadow-md hover:text-softRed hover:bg-white"
               onClick={handleLogout}
             >
               logout
-            </a>
+            </button>
+            <button
+              className="px-8 py-2 text-slate-500 bg-softRed border-2 border-softRed rounded-lg shadow-md hover:text-softRed hover:bg-white"
+              onClick={getCurrentUser}
+            >
+              getCurrentUser
+            </button>
             {!user
               ?
-              <a
-
-                href="/"
+              <button
                 className="px-8 py-2 text-slate-500 bg-softRed border-2 border-softRed rounded-lg shadow-md hover:text-softRed hover:bg-white"
                 onClick={() => handleLogin("test@test.com", '1223')}
               >
                 Login
-              </a>
+              </button>
 
-              : <a
-
-                href="/"
+              : <button
                 className="px-8 py-2 text-slate-500 bg-softRed border-2 border-softRed rounded-lg shadow-md hover:text-softRed hover:bg-white"
                 onClick={() => navigate('/account')}
               >
                 Dashboard
-              </a>
+              </button>
             }
           </div>
           {/*    <!-- Hamburger Button --> */}
