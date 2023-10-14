@@ -11,16 +11,17 @@ import './App.css';
 import LandingPage from './pages/LandingPage';
 import { getRoutes } from './utils/getRoutes';
 import { layoutRoutesUser } from './routes/userRoutes';
+import { useAuth } from './context/authContext';
 
 function App() {
-  const isUser = true
+  const { user } = useAuth();
 
   return (
     <BrowserRouter>
       <Routes>
         {/*         {isUser && getRoutes(UserLayout, [authRoutes])} */}
-        {isUser && getRoutes(UserLayout, layoutRoutesUser)}
-        {!isUser && getRoutes(RootLayout, layoutAuthRoutes)}
+        {user && getRoutes(UserLayout, layoutRoutesUser)}
+        {!user && getRoutes(RootLayout, layoutAuthRoutes)}
         <Route
           path="/"
           element={

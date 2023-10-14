@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../context/authContext';
 
-interface IHeaderProps {}
+interface IHeaderProps { }
 
 const Header: React.FC<IHeaderProps> = (props) => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const { login } = useAuth();
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -48,6 +50,7 @@ const Header: React.FC<IHeaderProps> = (props) => {
             <a
               href="/"
               className="px-8 py-2 text-slate-500 bg-softRed border-2 border-softRed rounded-lg shadow-md hover:text-softRed hover:bg-white"
+              onClick={() => login}
             >
               Login
             </a>
@@ -55,9 +58,8 @@ const Header: React.FC<IHeaderProps> = (props) => {
           {/*    <!-- Hamburger Button --> */}
           <button
             id="menu-btn"
-            className={`z-30 block md:hidden focus:outline-none hamburger ${
-              isNavOpen ? 'open' : ''
-            }`}
+            className={`z-30 block md:hidden focus:outline-none hamburger ${isNavOpen ? 'open' : ''
+              }`}
             onClick={toggleNav}
           >
             <span className="hamburger-top"></span>
@@ -68,9 +70,8 @@ const Header: React.FC<IHeaderProps> = (props) => {
         {/*  <!-- Mobile Menu --> */}
         <div
           id="menu"
-          className={`fixed inset-0 z-20 flex-col items-center self-end w-full h-full m-h-screen px-6 py-1 pt-24 pb-4 tracking-widest text-white uppercase divide-y divide-gray-500 opacity-90 bg-veryDarkBlue ${
-            isNavOpen ? 'flex  md:hidden' : 'hidden'
-          }`}
+          className={`fixed inset-0 z-20 flex-col items-center self-end w-full h-full m-h-screen px-6 py-1 pt-24 pb-4 tracking-widest text-white uppercase divide-y divide-gray-500 opacity-90 bg-veryDarkBlue ${isNavOpen ? 'flex  md:hidden' : 'hidden'
+            }`}
         >
           <div className="w-full py-3 text-center">
             <a href="#features" className="block hover:text-softRed">
