@@ -1,16 +1,21 @@
 /** @format */
 
+import axios from "axios";
+
 const baseUrl = "http://localhost:3001/api/users";
+
+// Create an Axios instance with credentials enabled
+const axiosInstance = axios.create({
+  withCredentials: true,
+  baseURL: baseUrl,
+});
 
 export const getCurrentUser = async () => {
   try {
-    // Make an API call to authenticate the user
-    const response = await fetch(`${baseUrl}/currentuser`, {
-      method: "GET",
-    });
+    const response = await axiosInstance.get("/currentuser");
 
-    if (response.ok) {
-      const userData = await response.json();
+    if (response.status === 200) {
+      const userData = response.data;
       // You can choose to handle the login logic here or in the component where you use it.
       return userData;
     } else {
@@ -22,19 +27,12 @@ export const getCurrentUser = async () => {
   }
 };
 
-export const login = async (email: string, password: string) => {
+export const signin = async (email: string, password: string) => {
   try {
-    // Make an API call to authenticate the user
-    const response = await fetch(`${baseUrl}/signin`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    const response = await axiosInstance.post("/signin", { email, password });
 
-    if (response.ok) {
-      const userData = await response.json();
+    if (response.status === 200) {
+      const userData = response.data;
       // You can choose to handle the login logic here or in the component where you use it.
       return userData;
     } else {
@@ -46,17 +44,28 @@ export const login = async (email: string, password: string) => {
   }
 };
 
-export const logout = async () => {
+export const signup = async (email: string, password: string) => {
   try {
-    // Make an API call to log the user out
-    const response = await fetch(`${baseUrl}/signout`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await axiosInstance.post("/signin", { email, password });
 
-    if (response.ok) {
+    if (response.status === 200) {
+      const userData = response.data;
+      // You can choose to handle the login logic here or in the component where you use it.
+      return userData;
+    } else {
+      throw new Error("Authentication failed");
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+    throw error;
+  }
+};
+
+export const signout = async () => {
+  try {
+    const response = await axiosInstance.post("/signout");
+
+    if (response.status === 200) {
       // You can choose to handle the logout logic here or in the component where you use it.
       return true;
     } else {

@@ -12,14 +12,23 @@ import { signoutRouter } from "./routes/signout";
 import { signupRouter } from "./routes/signup";
 import cors from "cors";
 
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true, // Enable credentials (cookies) in CORS
+};
+
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 app.set("trust proxy", true);
 app.use(json());
 app.use(
   cookieSession({
+    name: 'session',
     signed: false,
-    secure: process.env.NODE_ENV !== "test",
+    secure: process.env.NODE_ENV === "test",
+    httpOnly: false,
+    sameSite: "lax",
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
   })
 );
 

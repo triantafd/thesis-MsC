@@ -1,7 +1,7 @@
 // AuthContext.js
 // AuthContext.tsx
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { login, logout } from '../services/authService';
+import React, { createContext, useContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from 'react';
+import { signin, signout, signup } from '../services/authService';
 
 // Define the user type
 interface User {
@@ -12,8 +12,10 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
-  handleLogin: (email: string, password: string) => Promise<void>;
-  handleLogout: () => Promise<void>;
+  handleSignin: (email: string, password: string) => Promise<void>;
+  handleSignout: () => Promise<void>;
+  handleSignup: (email: string, password: string) => Promise<void>;
+  setUser: Dispatch<SetStateAction<User | null>>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -23,23 +25,46 @@ interface IAuthProvider {
 }
 
 export const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(() => {
+    // Check if user data is stored in localStorage
+    const storedUserData = localStorage.getItem("userData");
+    return storedUserData ? JSON.parse(storedUserData) : null;
+  });
 
-  const handleLogin = async (email: string, password: string) => {
+  const handleSignup = async (email: string, password: string) => {
     try {
-      const userData = await login(email, password);
+      const userData = await signup(email, password);
       setUser(userData);
+
+      // Save user data to local storage
+      localStorage.setItem('userData', JSON.stringify(userData));
     } catch (error) {
       console.error('Login error:', error);
       throw error;
     }
   };
 
-  const handleLogout = async () => {
+  const handleSignin = async (email: string, password: string) => {
     try {
-      const success = await logout();
+      const userData = await signin(email, password);
+      setUser(userData);
+
+      // Save user data to local storage
+      localStorage.setItem('userData', JSON.stringify(userData));
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
+    }
+  };
+
+  const handleSignout = async () => {
+    try {
+      const success = await signout();
       if (success) {
         setUser(null);
+
+        // Remove user data from local storage
+        localStorage.removeItem('userData');
       } else {
         throw new Error('Logout failed');
       }
@@ -50,7 +75,7 @@ export const AuthProvider: React.FC<IAuthProvider> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, handleLogin, handleLogout }}>
+    <AuthContext.Provider value={{ user, setUser, handleSignin, handleSignout, handleSignup }}>
       {children}
     </AuthContext.Provider>
   );

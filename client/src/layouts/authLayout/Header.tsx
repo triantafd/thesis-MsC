@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/authContext';
 import { useNavigate } from 'react-router-dom';
-import { getCurrentUser } from '../../services/authService';
 
 interface IHeaderProps { }
 
 const Header: React.FC<IHeaderProps> = (props) => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const { user, handleLogin, handleLogout } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const toggleNav = () => {
@@ -49,23 +48,12 @@ const Header: React.FC<IHeaderProps> = (props) => {
             <a href="#faq" className="tracking-widest hover:text-softRed">
               FAQ
             </a>
-            <button
-              className="px-8 py-2 text-slate-500 bg-softRed border-2 border-softRed rounded-lg shadow-md hover:text-softRed hover:bg-white"
-              onClick={handleLogout}
-            >
-              logout
-            </button>
-            <button
-              className="px-8 py-2 text-slate-500 bg-softRed border-2 border-softRed rounded-lg shadow-md hover:text-softRed hover:bg-white"
-              onClick={getCurrentUser}
-            >
-              getCurrentUser
-            </button>
+
             {!user
               ?
               <button
                 className="px-8 py-2 text-slate-500 bg-softRed border-2 border-softRed rounded-lg shadow-md hover:text-softRed hover:bg-white"
-                onClick={() => handleLogin("test@test.com", '1223')}
+                onClick={() => navigate('/auth/login')}
               >
                 Login
               </button>

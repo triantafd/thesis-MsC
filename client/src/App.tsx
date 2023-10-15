@@ -15,7 +15,7 @@ import { useAuth } from './context/authContext';
 
 function App() {
   const { user } = useAuth();
-
+  
   return (
     <BrowserRouter>
       <Routes>
