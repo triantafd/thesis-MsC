@@ -15,7 +15,7 @@ const navItems = [
     name: "Home",
     icon: "fas fa-home",
     link: "/home",
-    route: "/account"
+    route: "/home"
   },
   {
     name: "Account",

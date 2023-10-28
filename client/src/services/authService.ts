@@ -46,7 +46,7 @@ export const signin = async (email: string, password: string) => {
 
 export const signup = async (email: string, password: string) => {
   try {
-    const response = await axiosInstance.post("/signin", { email, password });
+    const response = await axiosInstance.post("/signup", { email, password });
 
     if (response.status === 200) {
       const userData = response.data;

@@ -1,5 +1,6 @@
 /** @format */
 
+import Home from "../pages/Home";
 import Settings from "../pages/Settings";
 import Account from "../pages/account";
 import { IRoute } from "./types";
@@ -11,6 +12,13 @@ const accountUserRoute: IRoute = {
   guard: null,
 };
 
+const homeUserRoute: IRoute = {
+  path: "/home",
+  name: "Home",
+  component: Home,
+  guard: null,
+};
+
 const accountSettingsRoute: IRoute = {
   path: "/settings",
   name: "Settings",
@@ -18,4 +26,8 @@ const accountSettingsRoute: IRoute = {
   guard: null,
 };
 
-export const layoutRoutesUser = [accountUserRoute, accountSettingsRoute];
+export const layoutRoutesUser = [
+  homeUserRoute,
+  accountUserRoute,
+  accountSettingsRoute,
+];
