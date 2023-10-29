@@ -5,7 +5,7 @@ import { signin, signout, signup } from '../services/authService';
 
 // Define the user type
 interface User {
-  id: number;
+  id: string;
   email: string;
   // Add other user properties as needed
 }
