@@ -4,7 +4,7 @@ import express from "express";
 import "express-async-errors";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
-import { errorHandler, NotFoundError } from "thesis-common";
+import { currentUser, errorHandler, NotFoundError } from "thesis-common";
 
 import { createSingleImageRouter } from "./routes/new";
 import { showSingleImageRouter } from "./routes/show";
@@ -13,7 +13,6 @@ import { deleteAllImagesRouter } from "./routes/deleteAll";
 import { deleteSingleImageRouter } from "./routes/delete";
 
 import cors from "cors";
-
 
 const corsOptions = {
   origin: "http://localhost:3000",
@@ -34,6 +33,8 @@ app.use(
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
   })
 );
+
+app.use(currentUser);
 
 app.use(createSingleImageRouter);
 app.use(showSingleImageRouter);

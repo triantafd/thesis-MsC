@@ -6,7 +6,7 @@ import { requireAuth } from "thesis-common";
 
 const router = express.Router();
 
-router.get("/api/images", /* requireAuth */ async (req: Request, res: Response) => {
+router.get("/api/images", requireAuth, async (req: Request, res: Response) => {
   // Retrieve the images
   const images = await SingleImage.find({});
 
