@@ -19,7 +19,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {!!user && getRoutes(UserLayout, layoutRoutesUser)}
+        {!user && getRoutes(UserLayout, layoutRoutesUser)}
         {!user && getRoutes(RootLayout, layoutAuthRoutes)}
         <Route
           path="/"

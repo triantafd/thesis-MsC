@@ -101,7 +101,7 @@ const Sidebar: React.FC<{}> = () => {
         className={`${isOpen ? 'block' : 'hidden'
           } md:block bg-gray-800 md:h-full`}
       >
-        <div className="p-4">
+        <div className="p-4 md:w-[16rem] md:h-screen">
           {/* Logo for medium and up */}
           <div className="hidden md:block">
             <img src={logo} alt="Logo" className="w-32 mx-auto" />
