@@ -1,0 +1,49 @@
+version: '3'
+services:
+  detection:
+    container_name: img_detection
+    build: ./yolov7-cpu
+    environment:
+      - JWT_KEY=JWT_KEY
+    ports:
+      - "3005:3005"
+
+  app:
+    container_name: auth
+    build: ./auth
+    ports:
+      - "3001:3001"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/thesisDatabase
+      - JWT_KEY=JWT_KEY
+    depends_on:
+      - mongo
+
+  imagesfileserver:
+    container_name: img_fileserver
+    build: ./imagesFileServer
+    ports:
+      - "3002:3002" # Change the ports if needed
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/thesisDatabase
+      - JWT_KEY=JWT_KEY
+    depends_on:
+      - mongo
+
+  mongo:
+    container_name: mongo_db
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  client:
+    container_name: react_client
+    build: ./client
+    ports:
+      - "3000:3000"
+
+
+volumes:
+  mongo-data:
